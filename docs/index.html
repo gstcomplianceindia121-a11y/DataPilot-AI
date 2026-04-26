@@ -1777,6 +1777,253 @@ footer {
 ::-webkit-scrollbar-track { background: var(--navy); }
 ::-webkit-scrollbar-thumb { background: var(--navy-light); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--gray-dim); }
+
+/* ─── MOBILE HAMBURGER ─── */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 201;
+  padding: 4px;
+}
+.menu-toggle span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Mobile nav overlay backdrop */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 149;
+  backdrop-filter: blur(4px);
+}
+.nav-overlay.active { display: block; }
+
+/* ─── TABLET (≤1024px) ─── */
+@media (max-width: 1024px) {
+  .pipeline-details { grid-template-columns: repeat(3, 1fr); }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .agents-stack { grid-template-columns: repeat(2, 1fr); }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 2fr 1fr 1fr; }
+}
+
+/* ─── MOBILE (≤768px) ─── */
+@media (max-width: 768px) {
+  /* NAV */
+  nav { padding: 0 20px; height: 64px; }
+  .menu-toggle { display: flex; }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(320px, 85vw);
+    height: 100vh;
+    background: rgba(10, 20, 40, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-left: 1px solid rgba(0,212,255,0.15);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    padding: 0 32px;
+    z-index: 200;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    list-style: none;
+  }
+  .nav-links.active { right: 0; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: block;
+    padding: 14px 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(0,212,255,0.07);
+    color: var(--gray);
+  }
+  .nav-links a:hover { color: var(--cyan); }
+  .nav-links li:last-child a { margin-top: 20px; border-bottom: none; }
+  .nav-cta { border-radius: 8px !important; padding: 12px 20px !important; text-align: center; width: 100%; display: block; }
+
+  /* Hamburger X animation */
+  .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* SECTIONS - reduce padding */
+  #hero, #problem, #how, #features, #market, #agents, #roadmap, #pricing, #cta, #compare, #testimonials {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  #problem, #how, #features, #market, #agents, #roadmap, #pricing, #cta, #compare, #testimonials {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+
+  /* HERO */
+  #hero { padding-top: 100px; padding-bottom: 60px; }
+  .hero-content { max-width: 100%; }
+  .hero-title { font-size: clamp(2.2rem, 9vw, 3.5rem) !important; line-height: 1.08; }
+  .hero-subtitle { font-size: 1rem; max-width: 100%; margin-bottom: 2rem; }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; }
+  .btn-primary, .btn-secondary { width: 100%; justify-content: center; font-size: 0.95rem; }
+  .hero-stats { gap: 0; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 8px; justify-content: flex-start; }
+  .stat-item { flex: 0 0 auto; padding: 0 20px 0 0; text-align: left; }
+  .stat-divider { display: none; }
+  .stat-num { font-size: 1.6rem; }
+
+  /* DASHBOARD PREVIEW */
+  .dashboard-preview { width: 100%; overflow: hidden; }
+  .dashboard-frame { border-radius: 10px; }
+  .dashboard-bar { padding: 10px 14px; }
+  .db-title { display: none; }
+  .dashboard-body {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 14px;
+  }
+  .db-chart-card { grid-column: span 2; }
+  .db-insight-card { grid-column: span 2; }
+  .db-card-value { font-size: 1.4rem; }
+  .db-insight-text { font-size: 0.72rem; }
+  .db-rec-pill { font-size: 0.68rem; white-space: normal; }
+
+  /* PROBLEM */
+  #problem > div { max-width: 100% !important; }
+  .problem-grid { grid-template-columns: 1fr; gap: 40px; }
+  .problem-visual { order: -1; }
+  .section-title { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  .section-sub { font-size: 0.95rem; max-width: 100%; }
+  .workflow-step { flex-wrap: wrap; gap: 8px; }
+  .step-time { margin-left: auto; }
+
+  /* HOW IT WORKS */
+  .how-header { margin-bottom: 48px; }
+  .pipeline-track {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .pipeline-track::before {
+    top: 56px; bottom: 56px;
+    left: 56px; right: auto;
+    width: 2px; height: auto;
+  }
+  .pipeline-step {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+    padding-bottom: 32px;
+    width: 100%;
+  }
+  .pipeline-icon {
+    width: 72px; height: 72px;
+    min-width: 72px;
+    font-size: 1.4rem;
+    margin-bottom: 0;
+  }
+  .pipeline-step-desc { max-width: 100%; }
+  .pipeline-details { grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 32px; }
+
+  /* FEATURES */
+  .features-header { margin-bottom: 40px; }
+  .features-grid { grid-template-columns: 1fr; gap: 16px; }
+  .feature-card { padding: 24px 20px; }
+
+  /* MARKET */
+  .market-inner { grid-template-columns: 1fr; gap: 40px; }
+  .market-stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .market-stat { padding: 20px 18px; }
+  .market-stat .num { font-size: 1.8rem; }
+
+  /* AGENTS */
+  .agents-header { margin-bottom: 40px; }
+  .agents-diagram { max-width: 100%; }
+  .agent-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+  .agent-node { max-width: 140px; flex: 1 1 120px; }
+  .agent-connector { display: none; }
+  .agents-stack { grid-template-columns: 1fr; gap: 12px; margin-top: 28px; }
+
+  /* ROADMAP */
+  .roadmap-header { margin-bottom: 48px; }
+  .roadmap-track::before { left: 14px; transform: none; width: 2px; }
+  .roadmap-item {
+    flex-direction: row !important;
+    gap: 20px;
+    padding-left: 44px;
+    margin-bottom: 32px;
+  }
+  .roadmap-item.right { flex-direction: row !important; }
+  .roadmap-dot {
+    position: absolute;
+    left: 4px;
+    margin-top: 20px;
+    flex-shrink: 0;
+  }
+  .roadmap-content { padding: 20px; }
+  .roadmap-title { font-size: 1.05rem; }
+
+  /* COMPARE */
+  .compare-header { margin-bottom: 32px; }
+  .compare-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 16px;
+    border: 1px solid rgba(0,212,255,0.12);
+  }
+  .compare-table {
+    min-width: 600px;
+    border-radius: 0;
+    border: none;
+    overflow: visible;
+  }
+  .compare-cell { padding: 12px 14px; font-size: 0.78rem; }
+
+  /* TESTIMONIALS */
+  .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+  .testimonials-header { margin-bottom: 40px; }
+
+  /* PRICING */
+  .pricing-header { margin-bottom: 40px; }
+  .pricing-grid { grid-template-columns: 1fr; gap: 20px; max-width: 420px; margin: 0 auto; }
+  .pricing-card { padding: 28px 22px; }
+
+  /* CTA */
+  .cta-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .cta-sub { font-size: 0.95rem; }
+
+  /* FOOTER */
+  footer { padding: 48px 20px 32px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; align-items: center; }
+  .footer-badges { flex-wrap: wrap; justify-content: center; }
+}
+
+/* ─── SMALL MOBILE (≤480px) ─── */
+@media (max-width: 480px) {
+  .hero-title { font-size: 2.1rem !important; }
+  .pipeline-details { grid-template-columns: 1fr; }
+  .market-stats-grid { grid-template-columns: 1fr; }
+  .dashboard-body { grid-template-columns: 1fr; }
+  .db-chart-card, .db-insight-card { grid-column: span 1; }
+  .pricing-grid { max-width: 100%; }
+  .hero-badge { font-size: 0.7rem; }
+}
 </style>
 </head>
 <body>
@@ -1787,7 +2034,12 @@ footer {
     <div class="logo-dot"></div>
     DataPilot
   </a>
-  <ul class="nav-links">
+  <div class="menu-toggle" id="mobile-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <ul class="nav-links" id="nav-list">
     <li><a href="#problem">Problem</a></li>
     <li><a href="#how">How It Works</a></li>
     <li><a href="#features">Features</a></li>
@@ -1796,6 +2048,7 @@ footer {
     <li><a href="#cta" class="nav-cta">Get Early Access</a></li>
   </ul>
 </nav>
+<div class="nav-overlay" id="nav-overlay"></div>
 
 <!-- HERO -->
 <section id="hero">
@@ -2314,7 +2567,8 @@ footer {
     <p class="section-sub" style="margin:0 auto">Every other tool stops at visualization or partial insights. DataPilot is the only platform that goes all the way to recommended action.</p>
   </div>
 
-  <div class="compare-table reveal">
+  <div class="compare-table-wrapper reveal">
+  <div class="compare-table">
     <div class="compare-row header">
       <div class="compare-cell">Capability</div>
       <div class="compare-cell">Tableau / Power BI</div>
@@ -2371,6 +2625,7 @@ footer {
       <div class="compare-cell"><span class="icon-no">✗</span></div>
       <div class="compare-cell highlight"><span class="icon-yes">✓</span></div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -2629,12 +2884,9 @@ footer {
 const revealEls = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
 revealEls.forEach(el => observer.observe(el));
 
 // Nav scroll effect
@@ -2649,42 +2901,62 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// Animated counter
-function animateCounter(el, target, suffix = '') {
-  let start = 0;
-  const duration = 1800;
-  const step = (timestamp) => {
-    if (!start) start = timestamp;
-    const progress = Math.min((timestamp - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.floor(eased * target) + suffix;
-    if (progress < 1) requestAnimationFrame(step);
-  };
-  requestAnimationFrame(step);
+// ─── MOBILE MENU TOGGLE ───
+const mobileMenu = document.getElementById('mobile-menu');
+const navList    = document.getElementById('nav-list');
+const navOverlay = document.getElementById('nav-overlay');
+
+function openMenu() {
+  mobileMenu.classList.add('active');
+  navList.classList.add('active');
+  navOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
 }
 
-// Smooth nav link scroll
+function closeMenu() {
+  mobileMenu.classList.remove('active');
+  navList.classList.remove('active');
+  navOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+if (mobileMenu) {
+  mobileMenu.addEventListener('click', () => {
+    mobileMenu.classList.contains('active') ? closeMenu() : openMenu();
+  });
+}
+
+if (navOverlay) {
+  navOverlay.addEventListener('click', closeMenu);
+}
+
+// Close menu when any nav link is clicked
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', closeMenu);
+});
+
+// ─── SMOOTH SCROLL ───
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     const href = this.getAttribute('href');
     if (href === '#') return;
     e.preventDefault();
     const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// Subtle parallax on hero orbs
-window.addEventListener('mousemove', (e) => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 20;
-  const y = (e.clientY / window.innerHeight - 0.5) * 20;
-  const orb1 = document.querySelector('.orb1');
-  const orb2 = document.querySelector('.orb2');
-  if (orb1) orb1.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
-  if (orb2) orb2.style.transform = `translate(${-x * 0.3}px, ${-y * 0.3}px)`;
-});
+// ─── HERO ORB PARALLAX (desktop only) ───
+if (window.innerWidth > 768) {
+  window.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    const orb1 = document.querySelector('.orb1');
+    const orb2 = document.querySelector('.orb2');
+    if (orb1) orb1.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+    if (orb2) orb2.style.transform = `translate(${-x * 0.3}px, ${-y * 0.3}px)`;
+  });
+}
 </script>
 </body>
 </html>
